@@ -4,7 +4,6 @@ const fs = require('fs');
 
 let win;
 
-// Playwright imports
 const { chromium } = require('playwright');
 
 let pwBrowser = null;
@@ -35,12 +34,8 @@ app.on('window-all-closed', () => {
     app.quit();
 });
 
-/* IPC handlers from renderer */
-
-// Session logs
 let sessionLogs = [];
 
-// Start test: launches chromium (non-headless) with video recording for that context
 ipcMain.handle('start-test', async (event, opts) => {
     if (pwBrowser) {
         return { ok: false, message: 'Test already running' };
@@ -104,7 +99,6 @@ ipcMain.handle('start-test', async (event, opts) => {
     }
 });
 
-// Pass: stop recording and delete video
 ipcMain.handle('pass-test', async () => {
     if (!pwPage) return { ok: false, message: 'No test running' };
     try {
@@ -140,7 +134,6 @@ ipcMain.handle('pass-test', async () => {
     }
 });
 
-// Fail: stop recording and move video to saved folder
 ipcMain.handle('fail-test', async () => {
     if (!pwPage) return { ok: false, message: 'No test running' };
     try {
@@ -182,7 +175,6 @@ ipcMain.handle('fail-test', async () => {
     }
 });
 
-// Optional: abort/cleanup if needed
 ipcMain.handle('abort-test', async () => {
     try {
         if (pwContext) await pwContext.close();
