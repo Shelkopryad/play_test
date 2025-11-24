@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Test Recorder</title>
+    <!-- Google Fonts: Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6200ee;
+            --primary-variant: #3700b3;
+            --secondary-color: #03dac6;
+            --background-color: #121212;
+            --surface-color: #1e1e1e;
+            --error-color: #cf6679;
+            --on-primary: #ffffff;
+            --on-secondary: #000000;
+            --on-background: #ffffff;
+            --on-surface: #ffffff;
+            --on-error: #000000;
+            --disabled-color: #ffffff1f;
+            /* 12% opacity white */
+            --disabled-text: #ffffff61;
+            /* 38% opacity white */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--on-background);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            user-select: none;
+            /* Prevent text selection */
+        }
+
+        .container {
+            background-color: var(--surface-color);
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.20);
+            text-align: center;
+            width: 340px;
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 500;
+            margin: 0 0 24px 0;
+            opacity: 0.87;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            border-radius: 4px;
+            padding: 0 16px;
+            height: 36px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.25px;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
+            outline: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Contained Button (Primary) */
+        .btn-contained {
+            background-color: var(--primary-color);
+            color: var(--on-primary);
+            box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .btn-contained:hover:not(:disabled) {
+            background-color: var(--primary-variant);
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        /* Outlined Button (Secondary/Error) */
+        .btn-outlined {
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--secondary-color);
+        }
+
+        .btn-outlined:hover:not(:disabled) {
+            background-color: rgba(3, 218, 198, 0.08);
+            /* 8% opacity secondary */
+        }
+
+        .btn-error {
+            color: var(--error-color);
+            border-color: rgba(207, 102, 121, 0.5);
+        }
+
+        .btn-error:hover:not(:disabled) {
+            background-color: rgba(207, 102, 121, 0.08);
+        }
+
+        /* Text Button (Abort) */
+        .btn-text {
+            background-color: transparent;
+            color: var(--on-surface);
+            opacity: 0.6;
+        }
+
+        .btn-text:hover:not(:disabled) {
+            background-color: rgba(255, 255, 255, 0.08);
+            opacity: 1;
+        }
+
+        /* Disabled State */
+        button:disabled {
+            background-color: var(--disabled-color);
+            color: var(--disabled-text);
+            box-shadow: none;
+            cursor: not-allowed;
+            border: none;
+        }
+
+        .btn-outlined:disabled {
+            background-color: transparent;
+            border: 1px solid var(--disabled-color);
+        }
+
+        #status {
+            font-size: 14px;
+            color: var(--on-surface);
+            opacity: 0.6;
+            margin-top: 8px;
+            min-height: 20px;
+        }
+
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Test Recorder</h1>
+        <div class="button-group">
+            <button id="start" class="btn-contained">Start Test</button>
+        </div>
+        <div class="button-group">
+            <button id="pass" class="btn-outlined" disabled>Passed</button>
+            <button id="fail" class="btn-outlined btn-error" disabled>Fail</button>
+        </div>
+        <div class="button-group">
+            <button id="abort" class="btn-text">Abort</button>
+        </div>
+        <div id="status">Ready to record</div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+
+</html>
