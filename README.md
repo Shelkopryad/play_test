@@ -18,7 +18,7 @@ A lightweight desktop application designed to assist QA engineers in recording a
 1.  Clone the repository.
 2.  Install dependencies:
     ```bash
-    npm install
+    ./setup.sh
     ```
 
 ## Usage
